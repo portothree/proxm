@@ -8,7 +8,11 @@ const colorscheme = {
 	headline: '#ffffff',
 };
 
-const screen = blessed.screen({ smartCSR: true, title: 'Proxm' });
+const screen = blessed.screen({
+	autoPadding: true,
+	smartCSR: true,
+	title: 'Proxm',
+});
 
 const qemuOverviewData = [
 	{
@@ -53,26 +57,22 @@ screen.key(['escape', 'q', 'C-c'], (ch, key) => {
 	return process.exit(0);
 });
 
-class App extends Component {
-	render() {
-		return (
-			<box
-				top="center"
-				left="center"
-				width="50%"
-				height="50%"
-				border={{ type: 'line' }}
-				style={{
-					fg: colorscheme.headline,
-					bg: colorscheme.background,
-					border: { fg: colorscheme.highlight },
-					hover: { bg: colorscheme.headline },
-				}}
-			>
-				QEMU VM index
-			</box>
-		);
-	}
-}
+const App = () => (
+	<box
+		top="center"
+		left="center"
+		width="50%"
+		height="50%"
+		border={{ type: 'line' }}
+		style={{
+			fg: colorscheme.headline,
+			bg: colorscheme.background,
+			border: { fg: colorscheme.highlight },
+			hover: { bg: colorscheme.headline },
+		}}
+	>
+		QEMU VM index
+	</box>
+);
 
 render(<App />, screen);
