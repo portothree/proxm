@@ -1,0 +1,30 @@
+{
+  "name": "proxm",
+  "version": "1.0.0",
+  "description": "Proxmox TUI",
+  "main": "index.js",
+  "type": "module",
+  "directories": {
+    "example": "examples"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/portothree/proxm.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/portothree/proxm/issues"
+  },
+  "homepage": "https://github.com/portothree/proxm#readme",
+  "dependencies": {
+    "blessed": "^0.1.81"
+  },
+  "devDependencies": {
+    "prettier": "^2.5.1"
+  }
+}
