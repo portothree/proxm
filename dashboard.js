@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import blessed from 'blessed';
 import { render } from 'react-blessed';
 
@@ -53,15 +53,35 @@ const qemuOverviewData = [
 	},
 ];
 
-screen.key(['escape', 'q', 'C-c'], (ch, key) => {
-	return process.exit(0);
-});
+screen.key(['escape', 'q', 'C-c'], () => process.exit(0));
+
+const VM = ({ left = 0, width = '30%', height = '30%', vmData }) => (
+	<box
+		top="center"
+		left={left}
+		width={width}
+		height={height}
+		border={{ type: 'line' }}
+		style={{
+			fg: colorscheme.headline,
+			bg: colorscheme.background,
+			border: { fg: colorscheme.highlight },
+			hover: { bg: colorscheme.headline },
+		}}
+	>
+		{[
+			`Name: ${vmData.name}`,
+			`VM ID: ${vmData.vmid}`,
+			`Status: ${vmData.status}`,
+		].join('\n')}
+	</box>
+);
 
 const App = () => (
 	<box
 		top="center"
 		left="center"
-		width="50%"
+		width="80%"
 		height="50%"
 		border={{ type: 'line' }}
 		style={{
@@ -71,7 +91,10 @@ const App = () => (
 			hover: { bg: colorscheme.headline },
 		}}
 	>
-		QEMU VM index
+		QEMU VMs
+		{qemuOverviewData.map((vm, index) => (
+			<VM key={index} left={index * 50} vmData={vm} />
+		))}
 	</box>
 );
 
