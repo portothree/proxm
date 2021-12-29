@@ -1,4 +1,6 @@
+import React, { Component } from 'react';
 import blessed from 'blessed';
+import { render } from 'react-blessed';
 
 const colorscheme = {
 	highlight: '#ffa500',
@@ -47,33 +49,30 @@ const qemuOverviewData = [
 	},
 ];
 
-const qemuOverviewBox = blessed.box({
-	parent: screen,
-	top: 'center',
-	left: 'center',
-	width: '50%',
-	height: '50%',
-	content: 'QEMU virtual machine index',
-	tags: true,
-	border: {
-		type: 'line',
-	},
-	style: {
-		fg: colorscheme.headline,
-		bg: colorscheme.background,
-		border: {
-			fg: colorscheme.highlight,
-		},
-		hover: {
-			bg: colorscheme.headline,
-		},
-	},
-});
-
 screen.key(['escape', 'q', 'C-c'], (ch, key) => {
 	return process.exit(0);
 });
 
-qemuOverviewBox.focus();
+class App extends Component {
+	render() {
+		return (
+			<box
+				top="center"
+				left="center"
+				width="50%"
+				height="50%"
+				border={{ type: 'line' }}
+				style={{
+					fg: colorscheme.headline,
+					bg: colorscheme.background,
+					border: { fg: colorscheme.highlight },
+					hover: { bg: colorscheme.headline },
+				}}
+			>
+				QEMU VM index
+			</box>
+		);
+	}
+}
 
-screen.render();
+render(<App />, screen);
