@@ -13,6 +13,7 @@ in
   devTools = {
     inherit (pkgs) niv;
     inherit (pre-commit-hooks) pre-commit;
+    inherit (pkgs) nodejs-16_x;
   };
 
   pre-commit-check = pre-commit-hooks.run {
