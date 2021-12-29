@@ -3,11 +3,9 @@
 	"version": "1.0.0",
 	"description": "Proxmox TUI",
 	"main": "index.js",
-	"directories": {
-		"example": "examples"
-	},
 	"scripts": {
-		"start": "node index.js"
+		"start": "node index.js",
+		"lint": "eslint ."
 	},
 	"repository": {
 		"type": "git",
@@ -30,6 +28,9 @@
 		"react-blessed": "^0.7.2"
 	},
 	"devDependencies": {
+		"eslint": "^8.5.0",
+		"eslint-plugin-react": "^7.28.0",
+		"eslint-plugin-react-hooks": "^4.3.0",
 		"prettier": "^2.5.1"
 	}
 }
