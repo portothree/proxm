@@ -14,48 +14,83 @@ const screen = blessed.screen({
 	title: 'Proxm',
 });
 
-const qemuOverviewData = [
+const clusterResourcesData = [
 	{
-		netout: 5253293,
-		name: 'Pi-hole',
 		maxmem: 2147483648,
-		mem: 326185963,
-		netin: 15046780,
-		cpus: 2,
-		uptime: 216958,
-		disk: 0,
-		maxdisk: 34359738368,
+		node: 'porto',
+		netin: 1936015,
+		mem: 280092672,
+		uptime: 25537,
 		status: 'running',
+		maxdisk: 34359738368,
+		netout: 664658,
+		maxcpu: 2,
+		id: 'qemu/100',
+		type: 'qemu',
+		cpu: 0.000498836418156463,
+		diskwrite: 149274624,
+		template: 0,
+		disk: 0,
 		vmid: 100,
-		diskread: 0,
-		pid: 2294,
-		diskwrite: 0,
-		cpu: 0.00088086718505653,
+		name: 'Pi-hole',
+		diskread: 217648830,
 	},
 	{
-		disk: 0,
-		maxdisk: 68719476736,
-		uptime: 86603,
-		balloon_min: 2147483648,
-		netin: 5121438,
-		cpus: 2,
-		maxmem: 4294967296,
-		mem: 2509918749,
-		netout: 298760,
-		name: 'k8s-1',
-		shares: 1000,
-		cpu: 0.0603732816834898,
-		pid: 1324639,
-		diskwrite: 0,
-		diskread: 0,
-		vmid: 101,
+		netin: 2284416,
 		status: 'running',
+		uptime: 25533,
+		mem: 2423177216,
+		node: 'porto',
+		maxmem: 4294967296,
+		disk: 0,
+		name: 'k8s-1',
+		diskread: 1025881824,
+		vmid: 101,
+		diskwrite: 5636371456,
+		cpu: 0.060359206596932,
+		template: 0,
+		id: 'qemu/101',
+		type: 'qemu',
+		maxcpu: 2,
+		maxdisk: 68719476736,
+		netout: 118156,
+	},
+	{
+		disk: 103918727168,
+		level: '',
+		cpu: 0.0126578136332205,
+		type: 'node',
+		id: 'node/porto',
+		maxcpu: 16,
+		maxdisk: 249893834752,
+		uptime: 25549,
+		mem: 8649355264,
+		status: 'online',
+		node: 'porto',
+		maxmem: 16719220736,
+	},
+	{
+		type: 'storage',
+		shared: 0,
+		content: 'vztmpl,iso,rootdir,backup,images,snippets',
+		id: 'storage/porto/local',
+		node: 'porto',
+		maxdisk: 249893834752,
+		plugintype: 'dir',
+		disk: 103918727168,
+		status: 'available',
+		storage: 'local',
 	},
 ];
 
 screen.key(['escape', 'q', 'C-c'], () => process.exit(0));
 
-const VM = ({ left = 0, width = '30%', height = '30%', vmData }) => (
+const Resource = ({
+	left = 0,
+	width = '30%',
+	height = '30%',
+	data: { id, status },
+}) => (
 	<box
 		top="center"
 		left={left}
@@ -69,11 +104,7 @@ const VM = ({ left = 0, width = '30%', height = '30%', vmData }) => (
 			hover: { bg: colorscheme.headline },
 		}}
 	>
-		{[
-			`Name: ${vmData.name}`,
-			`VM ID: ${vmData.vmid}`,
-			`Status: ${vmData.status}`,
-		].join('\n')}
+		{[`ID: ${id}`, `Status: ${status}`].join('\n')}
 	</box>
 );
 
@@ -92,8 +123,8 @@ const App = () => (
 		}}
 	>
 		QEMU VMs
-		{qemuOverviewData.map((vm, index) => (
-			<VM key={index} left={index * 50} vmData={vm} />
+		{clusterResourcesData.map((resource, index) => (
+			<Resource key={index} left={index * 50} data={resource} />
 		))}
 	</box>
 );
