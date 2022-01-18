@@ -2,15 +2,16 @@
 	"name": "proxm",
 	"version": "1.0.0",
 	"description": "Proxmox TUI",
-	"main": "index.js",
+	"main": "main.js",
 	"scripts": {
-		"start": "node index.js",
+		"start": "node main.js",
 		"lint": "eslint ."
 	},
 	"repository": {
 		"type": "git",
 		"url": "git+https://github.com/portothree/proxm.git"
 	},
+	"type": "module",
 	"keywords": [],
 	"author": "",
 	"license": "ISC",
@@ -19,18 +20,11 @@
 	},
 	"homepage": "https://github.com/portothree/proxm#readme",
 	"dependencies": {
-		"@babel/core": "^7.16.5",
-		"@babel/preset-env": "^7.16.5",
-		"@babel/preset-react": "^7.16.5",
 		"@babel/register": "^7.16.5",
-		"blessed": "^0.1.81",
-		"react": "^17.0.2",
-		"react-blessed": "^0.7.2"
+		"blessed": "^0.1.81"
 	},
 	"devDependencies": {
 		"eslint": "^8.5.0",
-		"eslint-plugin-react": "^7.28.0",
-		"eslint-plugin-react-hooks": "^4.3.0",
 		"prettier": "^2.5.1"
 	}
 }

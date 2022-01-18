@@ -1,6 +1,4 @@
-import React from 'react';
 import blessed from 'blessed';
-import { render } from 'react-blessed';
 
 const colorscheme = {
 	highlight: '#ffa500',
@@ -85,48 +83,29 @@ const clusterResourcesData = [
 
 screen.key(['escape', 'q', 'C-c'], () => process.exit(0));
 
-const Resource = ({
-	left = 0,
-	width = '30%',
-	height = '30%',
-	data: { id, status },
-}) => (
-	<box
-		top="center"
-		left={left}
-		width={width}
-		height={height}
-		border={{ type: 'line' }}
-		style={{
-			fg: colorscheme.headline,
-			bg: colorscheme.background,
-			border: { fg: colorscheme.highlight },
-			hover: { bg: colorscheme.headline },
-		}}
-	>
-		{[`ID: ${id}`, `Status: ${status}`].join('\n')}
-	</box>
-);
+const resourcesBox = blessed.box({
+	parent: screen,
+	top: 'center',
+	left: 'center',
+	width: '50%',
+	height: '50%',
+	content: 'QEMU virtual machine index',
+	tags: true,
+	border: {
+		type: 'line',
+	},
+	style: {
+		fg: colorscheme.headline,
+		bg: colorscheme.background,
+		border: {
+			fg: colorscheme.highlight,
+		},
+		hover: {
+			bg: colorscheme.headline,
+		},
+	},
+});
 
-const App = () => (
-	<box
-		top="center"
-		left="center"
-		width="80%"
-		height="50%"
-		border={{ type: 'line' }}
-		style={{
-			fg: colorscheme.headline,
-			bg: colorscheme.background,
-			border: { fg: colorscheme.highlight },
-			hover: { bg: colorscheme.headline },
-		}}
-	>
-		QEMU VMs
-		{clusterResourcesData.map((resource, index) => (
-			<Resource key={index} left={index * 50} data={resource} />
-		))}
-	</box>
-);
+resourcesBox.focus();
 
-render(<App />, screen);
+screen.render();
